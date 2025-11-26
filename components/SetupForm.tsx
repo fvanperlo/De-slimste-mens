@@ -41,10 +41,10 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-[#600000] border border-[#700000] rounded shadow-2xl">
+    <div className="max-w-2xl mx-auto p-8 bg-[#850000] border border-[#a00000] rounded shadow-2xl">
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold text-white tracking-tight uppercase mb-2">De Slimste Mens Puzzel</h1>
-        <p className="text-red-200">Vul 4 begrippen in. Omschrijvingen zijn optioneel (AI maakt ze voor je).</p>
+        <p className="text-red-100">Vul 4 begrippen in. Omschrijvingen zijn optioneel (AI maakt ze voor je).</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -55,19 +55,19 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             placeholder="Bijv. Hoofdsteden, Bekende Nederlanders..."
-            className="w-full bg-[#4a0000] border-[#5a0000] text-white rounded px-4 py-3 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition-all placeholder-red-300/50"
+            className="w-full bg-[#650000] border-[#750000] text-white rounded px-4 py-3 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition-all placeholder-red-200/50"
           />
         </div>
 
         <div className="space-y-4">
           {terms.map((term, index) => (
-            <div key={term.id} className={`bg-[#500000] rounded border ${expandedTermId === term.id ? 'border-red-300' : 'border-[#600000]'} overflow-hidden transition-all duration-300`}>
+            <div key={term.id} className={`bg-[#750000] rounded border ${expandedTermId === term.id ? 'border-red-300' : 'border-[#850000]'} overflow-hidden transition-all duration-300`}>
               <div 
-                className="p-4 flex items-center justify-between cursor-pointer hover:bg-[#5a0000] transition-colors"
+                className="p-4 flex items-center justify-between cursor-pointer hover:bg-[#800000] transition-colors"
                 onClick={() => setExpandedTermId(expandedTermId === term.id ? null : term.id)}
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#300000] text-white font-bold text-sm">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#500000] text-white font-bold text-sm">
                     {index + 1}
                   </span>
                   <input
@@ -76,7 +76,7 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
                     onChange={(e) => handleTermChange(term.id, e.target.value)}
                     onClick={(e) => e.stopPropagation()}
                     placeholder={`Begrip ${index + 1}`}
-                    className="bg-transparent border-none text-white font-semibold focus:ring-0 w-full placeholder-red-300/50 text-lg"
+                    className="bg-transparent border-none text-white font-semibold focus:ring-0 w-full placeholder-red-200/50 text-lg"
                   />
                 </div>
                 <div className="text-red-300">
@@ -85,8 +85,8 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
               </div>
 
               {expandedTermId === term.id && (
-                <div className="p-4 pt-0 border-t border-[#600000] bg-black/10">
-                  <p className="text-xs text-red-200 uppercase tracking-wider mb-3 mt-3">Optionele omschrijvingen (max 3)</p>
+                <div className="p-4 pt-0 border-t border-[#850000] bg-black/10">
+                  <p className="text-xs text-red-100 uppercase tracking-wider mb-3 mt-3">Optionele omschrijvingen (max 3)</p>
                   <div className="space-y-2">
                     {term.userClues.map((clue, idx) => (
                       <input
@@ -95,7 +95,7 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
                         value={clue}
                         onChange={(e) => handleClueChange(term.id, idx, e.target.value)}
                         placeholder={`Omschrijving ${idx + 1}`}
-                        className="w-full bg-[#4a0000] border-[#5a0000] text-white text-sm rounded px-3 py-2 focus:ring-1 focus:ring-white focus:border-transparent outline-none placeholder-red-300/30"
+                        className="w-full bg-[#650000] border-[#750000] text-white text-sm rounded px-3 py-2 focus:ring-1 focus:ring-white focus:border-transparent outline-none placeholder-red-200/30"
                       />
                     ))}
                   </div>
@@ -111,7 +111,7 @@ const SetupForm: React.FC<SetupFormProps> = ({ onGenerate, isGenerating }) => {
           className={`w-full py-4 rounded font-bold text-xl uppercase tracking-widest transition-all transform hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2
             ${isValid && !isGenerating 
               ? 'bg-white text-[#900000] hover:bg-gray-100 shadow-lg' 
-              : 'bg-[#400000] text-red-900 cursor-not-allowed'}`}
+              : 'bg-[#600000] text-red-300 cursor-not-allowed'}`}
         >
           {isGenerating ? (
             <>

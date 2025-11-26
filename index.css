@@ -6,11 +6,11 @@
 
 body {
   font-family: 'Barlow Condensed', sans-serif;
-  background-color: #8B0000;
+  background-color: #a30000; /* Lichter dan #8B0000 */
   color: white;
 }
 
 .slimste-red-bg {
-  background-color: #990000;
-  background-image: radial-gradient(circle at center, #b30000 0%, #800000 100%);
+  background-color: #b30000; /* Lichter dan #990000 */
+  background-image: radial-gradient(circle at center, #c90000 0%, #990000 100%); /* Veel frisser verloop */
 }

@@ -141,7 +141,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
 
     try {
       const canvas = await html2canvas(puzzleRef.current, {
-        backgroundColor: '#990000', // Match the red theme background
+        backgroundColor: '#b30000', // Match the NEW lighter red theme background for the screenshot
         scale: 2, // Improve quality
         onclone: (clonedDoc) => {
           // Find the hidden answer container in the CLONED document and make it visible
@@ -174,7 +174,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
         <div className="w-full flex justify-end gap-2 mb-4">
           <button 
             onClick={downloadPuzzle}
-            className="flex items-center gap-2 px-3 py-2 bg-[#600000] hover:bg-[#700000] text-red-100 rounded text-sm transition-colors border border-[#800000]"
+            className="flex items-center gap-2 px-3 py-2 bg-[#850000] hover:bg-[#950000] text-red-100 rounded text-sm transition-colors border border-[#a00000]"
             title="Download Puzzel (PNG)"
           >
             <Download className="w-4 h-4" />
@@ -182,7 +182,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
           </button>
           <button 
             onClick={toggleFullscreen}
-            className="flex items-center gap-2 px-3 py-2 bg-[#600000] hover:bg-[#700000] text-red-100 rounded text-sm transition-colors border border-[#800000]"
+            className="flex items-center gap-2 px-3 py-2 bg-[#850000] hover:bg-[#950000] text-red-100 rounded text-sm transition-colors border border-[#a00000]"
             title="Presentatiemodus"
           >
             <Maximize className="w-4 h-4" />
@@ -206,8 +206,8 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
       <div 
         ref={puzzleRef} 
         className={`w-full flex flex-col items-center ${!isFullscreen ? 'p-4 rounded-lg' : 'p-0'}`}
-        // We ensure the background is set here too for the screenshot to pick it up cleanly if 'backgroundColor' option in html2canvas isn't enough for some reason, though the option usually handles it.
-        style={{ backgroundColor: '#990000', backgroundImage: 'radial-gradient(circle at center, #b30000 0%, #800000 100%)' }}
+        // Updated colors for the wrapper itself to ensure consistency
+        style={{ backgroundColor: '#b30000', backgroundImage: 'radial-gradient(circle at center, #c90000 0%, #990000 100%)' }}
       >
         {/* Header Info */}
         <div className={`text-center ${isFullscreen ? 'mb-12 scale-110 pt-12' : 'mb-8 pt-4'}`}>
@@ -215,7 +215,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
             Welke 4 begrippen zoeken we?
             </h1>
             {data.theme && (
-            <p className="text-red-200 mt-2 text-lg uppercase tracking-widest opacity-80">{data.theme}</p>
+            <p className="text-red-100 mt-2 text-lg uppercase tracking-widest opacity-80">{data.theme}</p>
             )}
         </div>
 
@@ -231,17 +231,17 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
             `}</style>
 
             {tiles.map(tile => {
-                let bgColor = "bg-[#600000]"; // Dark red base color
+                let bgColor = "bg-[#850000]"; // New Lighter Red Base
                 let textColor = "text-white";
                 let borderColor = "border-transparent";
 
                 if (tile.isSolved) {
-                    bgColor = "bg-green-700";
-                    borderColor = "border-green-600";
+                    bgColor = "bg-green-600"; // Slightly lighter green
+                    borderColor = "border-green-500";
                     textColor = "text-white opacity-50"; 
                 } else if (tile.isSelected) {
                     bgColor = "bg-white"; // High contrast selection
-                    textColor = "text-[#800000]";
+                    textColor = "text-[#990000]";
                     borderColor = "border-white";
                 }
 
@@ -259,7 +259,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
                             transition-all duration-150
                             shadow-md
                             ${bgColor} ${textColor} ${borderColor}
-                            ${!tile.isSolved && !tile.isSelected ? 'hover:bg-[#700000]' : ''}
+                            ${!tile.isSolved && !tile.isSelected ? 'hover:bg-[#950000]' : ''}
                             ${tile.isSolved ? 'cursor-default' : 'cursor-pointer'}
                         `}
                     >
@@ -281,8 +281,8 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
                         className={`
                             p-4 text-center transition-all duration-500 border
                             ${isSolved 
-                                ? 'bg-green-900 border-green-700 text-white' 
-                                : 'bg-[#500000] border-[#600000] text-[#800000]'}
+                                ? 'bg-green-800 border-green-600 text-white' 
+                                : 'bg-[#750000] border-[#850000] text-[#a00000]'}
                         `}
                     >
                         <span className="font-bold text-lg uppercase block">
@@ -294,13 +294,13 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
         </div>
 
         {/* HIDDEN ANSWER KEY - ONLY VISIBLE IN PNG DOWNLOAD */}
-        <div id="hidden-answers-key" className="hidden w-full mt-8 pt-6 border-t border-red-800/50 pb-4 px-8">
+        <div id="hidden-answers-key" className="hidden w-full mt-8 pt-6 border-t border-red-400/30 pb-4 px-8">
            <h3 className="text-center text-white/40 uppercase tracking-widest text-sm mb-6">Antwoordmodel</h3>
            <div className="grid grid-cols-4 gap-4">
               {data.groups.map(group => (
-                 <div key={group.id} className="bg-black/20 p-4 rounded border border-white/10 flex flex-col items-center justify-center text-center">
+                 <div key={group.id} className="bg-black/10 p-4 rounded border border-white/10 flex flex-col items-center justify-center text-center">
                     <span className="font-bold text-xl text-white uppercase mb-1">{group.term}</span>
-                    <span className="text-xs text-red-200">{group.clues.join(" • ")}</span>
+                    <span className="text-xs text-red-100">{group.clues.join(" • ")}</span>
                  </div>
               ))}
            </div>
@@ -320,7 +320,7 @@ const PuzzleGame: React.FC<PuzzleGameProps> = ({ data, onReset }) => {
                 {!isFullscreen && (
                     <button 
                         onClick={onReset}
-                        className="flex items-center gap-2 bg-white text-[#900000] hover:bg-gray-100 px-8 py-3 rounded font-bold uppercase tracking-wider transition-colors shadow-lg"
+                        className="flex items-center gap-2 bg-white text-[#990000] hover:bg-gray-100 px-8 py-3 rounded font-bold uppercase tracking-wider transition-colors shadow-lg"
                     >
                         <RefreshCw className="w-4 h-4" />
                         Nieuwe Puzzel
